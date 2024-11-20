@@ -8,6 +8,8 @@ from datetime import datetime
 from bson import ObjectId
 from reportlab.pdfgen import canvas
 import os
+import logging
+from werkzeug.utils import secure_filename
 
 interview_route = Blueprint('interview_route', __name__)
 
@@ -228,3 +230,36 @@ def get_coding_report():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+# ALLOWED_EXTENSIONS = {'mp4', 'mp3', 'wav', 'ogg'}
+# UPLOAD_FOLDER = 'uploads/interview_recordings'
+
+
+# @interview_route.route('/save_answers', methods=['POST'])
+# def save_answers():
+#     try:
+#         # Get the data from the request
+#         data = request.form  # Assuming video/audio and question number are sent in form data
+#         question_number = int(data.get('question_number'))
+#         file = request.files.get('file')
+
+#         if not file:
+#             # logging.error("No file uploaded")
+#             return jsonify({'error': 'No file uploaded'}), 400
+
+#         # Define a directory to store the uploaded files
+#         upload_folder = os.path.join('uploaded_answers', f"question_{question_number}")
+#         os.makedirs(upload_folder, exist_ok=True)
+
+#         # Define file path to save the file
+#         file_path = os.path.join(upload_folder, f"answer_{question_number}.mp4")  # Or any other file type
+#         file.save(file_path)
+
+#         # logging.info(f"File saved at: {file_path}")
+        
+#         # Return a success response
+#         return jsonify({'message': 'Answer uploaded successfully', 'file_path': file_path}), 200
+    
+#     except Exception as e:
+#         # logging.error(f"Error while processing upload: {str(e)}")
+#         return jsonify({"error": str(e)}), 500
